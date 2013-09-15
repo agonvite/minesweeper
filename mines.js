@@ -15,12 +15,13 @@ var backend = {
 				type: 'empty', 		//mine, empty
 				state: 'hidden', 	//hidden, numbered, flagged, blank
 				number: null, 		//[1-9]
-				flagged: false 		//true, false
 			}
             if(i<m){
                 a[i].type = 'mine';
             }
 		}
+        
+        a.shuffle();
         
         for(j;j<height;j++) {
            
@@ -47,6 +48,11 @@ var backend = {
         
     },
     
+    getNumber: function(x,y){
+        var c = this.board[y][x];
+        
+    },
+    
     reveal: function(x,y) {
         
         if(this.board[y][x].type === 'empty') {
@@ -61,6 +67,29 @@ var backend = {
         
     }
 }
+
+Array.prototype.shuffle = function () {
+  var k, t, len;
+ 
+  len = this.length;
+ 
+  if (len < 2) {
+    return this;
+  }
+ 
+  while (len) {
+    k = Math.floor(Math.random() * len--);
+    t = this[k];
+ 
+    while (k < len) {
+      this[k] = this[++k];
+    }
+ 
+    this[k] = t;
+  }
+ 
+  return this;
+};
 
 
 
