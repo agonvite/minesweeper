@@ -63,10 +63,18 @@ td.flagged {
     background: #DD2A2A;
 }
 
-/* .mine::after {
+td::after {
+    position: absolute;
+    bottom:0;
+    right:0;
+    display:block;
+    font-size: 0.4em;
+}
+
+.mine::after {
     content: "M";
 }
 
 .empty::after {
     content: "X";
-} */
+}
