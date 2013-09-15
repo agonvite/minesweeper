@@ -3,6 +3,7 @@ var backend = {
     height: 0,
     board: [],
     turns: 0,
+    hiddenNonMines: 0,
     
 	init: function (width, height, density) {
 		var	   l = height*width,
@@ -14,16 +15,17 @@ var backend = {
            
         this.width = width;
         this.height = height;
-		   
+		this.hiddenNonMines = l-m;
 		for(i;i<l;i++){
 			a[i] = {
 				type: 'empty', 		//mine, empty
 				state: 'hidden', 	//hidden, numbered, flagged, blank
-				number: null, 		//[1-9]
+				number: null, 		//[1-8]
 			}
             if(i<m){
                 a[i].type = 'mine';
             }
+            
 		}
         
         a.shuffle();
@@ -88,14 +90,21 @@ var backend = {
             else if (n) {
                 c.state = 'numbered';
                 c.number = n;
+                this.hiddenNonMines--;
             }
             else {
                 c.state = 'blank';
-               
+                this.hiddenNonMines--;
             }
         }
+        this.winConditionCheck();
         this.board[y][x] = c;
         return this.board;
+    },
+    
+    winConditionCheck: function(){
+        var w = !this.hiddenNonMines;
+        if(w) alert('YOU WON IN ' + this.turns + ' TURNS');
     }
 }
 
