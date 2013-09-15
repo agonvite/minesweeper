@@ -40,6 +40,9 @@ td {
     transition: 0.2s;
     position: relative;
     z-index: 1;
+    -webkit-border-image: url(assets/corners.svg) 6 repeat;
+    -moz-border-image: url(assets/corners.svg) 6 repeat;
+    border-image: url(assets/corners.svg) 6 repeat;
 }
 
 td:hover {
@@ -57,13 +60,13 @@ td:active {
 }
 
 td.flagged {
-    background: red;
+    background: #DD2A2A;
 }
 
-.mine::after {
+/* .mine::after {
     content: "M";
 }
 
 .empty::after {
     content: "X";
-}
+} */
