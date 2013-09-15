@@ -110,4 +110,8 @@
 		frontend.init(5,5,Math.random()*0.5+0.25);
 	}
 	
+	window.onresize = function() {
+		
+	}
+	
 })()
