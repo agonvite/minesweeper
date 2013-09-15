@@ -1,5 +1,6 @@
 var backend = {
-    
+    width: 0,
+    height: 0,
     board: [],
     
 	init: function (width, height, density) {
@@ -9,6 +10,9 @@ var backend = {
                j = 0,
 		       a = new Array(l),
            board = [];
+           
+        this.width = width;
+        this.height = height;
 		   
 		for(i;i<l;i++){
 			a[i] = {
@@ -48,23 +52,45 @@ var backend = {
         
     },
     
-    getNumber: function(x,y){
-        var c = this.board[y][x];
+    hasMine: function(x,y) {
+        return (x>=0 && y>=0 && x<this.width && y<this.height && this.board[y][x].type==='mine');
+    }, 
+    
+    getNumber: function(x,y) {
+        var i = -1,
+            j = -1,
+            k = 0;
+        
+        for(i;i<2;i++){
+            j = -1;
+            for(j;j<2;j++){
+                if(i===0 && j===0){continue;}
+                k += this.hasMine(x+i,y+j) ? 1 : 0;
+            }
+        }
+        
+        return k;
         
     },
     
     reveal: function(x,y) {
+        var c = this.board[y][x],
+            n = this.getNumber(x,y);
         
-        if(this.board[y][x].type === 'empty') {
-            var i = 0,
-                j = 0,
-                l = this.board.length;
-                
-            for(i;i<l;i++){
-                
+        if(c.state === 'hidden'){
+            if (this.hasMine(x,y)) {
+                alert('you died :(')
+            }
+            else if (n) {
+                c.state = 'numbered';
+                c.number = n;
+            }
+            else {
+                c.state = 'blank';
             }
         }
-        
+        this.board[y][x] = c;
+        return this.board;
     }
 }
 
