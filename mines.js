@@ -3,14 +3,13 @@ var backend = {
     board: [],
     
 	init: function (width, height, density) {
-		
-        
-        var	   l = height*width,
+		var	   l = height*width,
                m = Math.floor(l*density),
 			   i = 0,
                j = 0,
 		       a = new Array(l),
            board = [];
+		   
 		for(i;i<l;i++){
 			a[i] = {
 				type: 'empty', 		//mine, empty
@@ -34,7 +33,7 @@ var backend = {
 	},
     
     flag: function(x,y) {
-        c = this.board[y][x];
+        var c = this.board[y][x];
         if(c.state === 'hidden') {
             c.state = flag;
         }
@@ -50,10 +49,10 @@ var backend = {
     
     reveal: function(x,y) {
         
-        if(board[y][x].type === 'empty') {
+        if(this.board[y][x].type === 'empty') {
             var i = 0,
                 j = 0,
-                l = board.length;
+                l = this.board.length;
                 
             for(i;i<l;i++){
                 
