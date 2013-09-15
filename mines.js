@@ -2,7 +2,9 @@ var backend = {
 	init: function (width, height) {
 		var	   l = height*width,
 			   i = 0,
+               j = 0,
 		       a = new Array(l),
+           board = [],
 		 	cell = {
 				type: 'empty', 		//mine, empty
 				state: 'initial', 	//hidden, numbered, flagged, blank
@@ -12,7 +14,12 @@ var backend = {
 		for(i;i<l;i++){
 			a[i] = cell;
 		}
-		return a;
+        
+        for(j;j<height;j++) {
+            board.push(a.slice(j*width,(j+1)*width));
+        }
+        
+		return board;
 		
 	}
 }
