@@ -56,6 +56,10 @@ td:active {
     transform: scale3d(0.9,0.9,1);
 }
 
+td.flagged {
+    background: red;
+}
+
 .mine::after {
     content: "M";
 }
