@@ -27,7 +27,7 @@ var frontend = {
 			currentRow,
 			currentCell,
 			cells = [];
-			
+		
 		//c.innerHTML = '&nbsp;';
 		d.appendChild(t);
 		
@@ -60,6 +60,10 @@ var frontend = {
 			t.appendChild(currentRow);
 			cells.push(currentRowArr.slice(0));
 		}
+		
+		this.canvas = document.createElement('canvas');
+		this.ctx = this.canvas.getContext('2d');
+		t.appendChild(this.canvas);
 		
 		document.body.appendChild(d);
 		this.cells = cells;
@@ -98,17 +102,50 @@ var frontend = {
 			console.log(this.state[y][x]);
 			this.updateBoard();
 		}
+	},
+	
+	drawCanvas: function (dim) {
+		this.canvas.width = this.canvas.height = RATIO*dim;
+		this.canvas.style.width = this.canvas.style.height = dim + 'px';
+		var ctx = this.ctx,
+			i = 0,
+			y = 0,
+			j = 0,
+			x = 0,
+			w = this.width,
+			dw = RATIO*dim/w;
+			h = this.height,
+			dh = RATIO*dim/h;
+		
+		for(i;i<=dim*RATIO;i+=dh) {
+			y = Math.floor(i);
+			for(j=0;j<=dim*RATIO;j+=dw) {
+				x = Math.floor(j);
+				drawCross(ctx, x, y);
+			}
+		}
 	}
 	
 }
 
-var container;
+var container,
+	cornerImg;
+
 
 window.onload = function () {
-	frontend.init(15,15,0.0444444444444);
+	frontend.init(3,3,0.0444444444444);
 	container = document.body.querySelector('main');
-	layout();
+	
+	cornerImg = new Image();
+	cornerImg.src = 'assets/corners.svg';
+	
+	cornerImg.onload = function() {
+		layout();
+	}
 }
+
+RATIO = devicePixelRatio / document.createElement('canvas').getContext('2d').webkitBackingStorePixelRatio
+
 
 layout = function() {
 	var w = document.body.clientWidth,
@@ -121,7 +158,16 @@ layout = function() {
 	} else {
 		container.style.top = (h-w)/2 + 'px';
 	}
+	
+	frontend.drawCanvas(x);
 }
+
+drawCross = function(ctx, x, y) {
+// 	ctx.fillRect(x-5, y-5, RATIO*10, RATIO*10);
+	ctx.drawImage(cornerImg,x-RATIO*(x === ctx.canvas.width?5:4),y-RATIO*(y === ctx.canvas.height?5:4),RATIO*9,RATIO*9);
+	console.log(x === ctx.canvas.width);
+}
+
 
 window.onresize = function() {
 	layout();

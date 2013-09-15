@@ -31,7 +31,14 @@ main {
     display: flex;
     flex-direction: column;
     position: absolute;
-    padding: 10px;
+}
+
+main > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 30;
+    pointer-events: none;
 }
 
 section {
@@ -40,6 +47,8 @@ section {
     flex-shrink: 1;
     flex-basis: 100%;
     width: 100%;
+    position: relative;
+    color: white;
 }
 
 article {
@@ -52,9 +61,10 @@ article {
     transition: 0.2s;
     position: relative;
     z-index: 1;
-    -webkit-border-image: url(assets/corners.svg) 6 repeat;
+/*     -webkit-border-image: url(assets/corners.svg) 6 repeat;
     -moz-border-image: url(assets/corners.svg) 6 repeat;
     border-image: url(assets/corners.svg) 6 repeat;
+    border-width: 6px; */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -72,7 +82,7 @@ article.hidden:hover {
     background: white;
     -webkit-transform: scale3d(1.2,1.2,1);
     transform: scale3d(1.2,1.2,1);
-    z-index: 2;
+    z-index: 10;
 }
 
 article.hidden:active {
