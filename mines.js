@@ -35,10 +35,10 @@ var backend = {
     flag: function(x,y) {
         var c = this.board[y][x];
         if(c.state === 'hidden') {
-            c.state = flag;
+            c.state = 'flagged';
         }
         else if(c.state === 'flagged') {
-            c.state = hidden;
+            c.state = 'hidden';
         }
         
         this.board[y][x] = c;
