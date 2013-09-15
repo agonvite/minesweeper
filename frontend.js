@@ -117,9 +117,9 @@ var frontend = {
 			h = this.height,
 			dh = RATIO*dim/h;
 		
-		for(i;i<=dim*RATIO;i+=dh) {
+		for(i;i<=dim*RATIO+1;i+=dh) {
 			y = Math.floor(i);
-			for(j=0;j<=dim*RATIO;j+=dw) {
+			for(j=0;j<=dim*RATIO+1;j+=dw) {
 				x = Math.floor(j);
 				drawCross(ctx, x, y);
 			}
@@ -133,7 +133,7 @@ var container,
 
 
 window.onload = function () {
-	frontend.init(3,3,0.0444444444444);
+	frontend.init(10,11,0.0444444444444);
 	container = document.body.querySelector('main');
 	
 	cornerImg = new Image();
