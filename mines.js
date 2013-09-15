@@ -4,6 +4,7 @@ var backend = {
     board: [],
     turns: 0,
     hiddenNonMines: 0,
+    markedMines: 0,
     
 	init: function (width, height, density) {
 		var	   l = height*width,
@@ -44,9 +45,11 @@ var backend = {
         var c = this.board[y][x];
         if(c.state === 'hidden') {
             c.state = 'flagged';
+            this.markedMines++;
         }
         else if(c.state === 'flagged') {
             c.state = 'hidden';
+            this.markedMines--;
         }
         
         this.board[y][x] = c;
@@ -76,12 +79,14 @@ var backend = {
         
     },
     
-    reveal: function(x,y) {
+    reveal: function(x,y,isFlood) {
+        
+        if(x<0||y<0||y>=this.height||x>=this.width||this.board[y][x].state !=='hidden') return;
+        
         var c = this.board[y][x],
             n = this.getNumber(x,y);
         
-        
-        this.turns++;
+        if(!isFlood) this.turns++;
         
         if(c.state === 'hidden'){
             if (this.hasMine(x,y)) {
@@ -94,7 +99,9 @@ var backend = {
             }
             else {
                 c.state = 'blank';
+                console.log(this.board[y][x])
                 this.hiddenNonMines--;
+                this.floodFill(x,y);
             }
         }
         this.winConditionCheck();
@@ -102,9 +109,24 @@ var backend = {
         return this.board;
     },
     
-    winConditionCheck: function(){
+    winConditionCheck: function() {
         var w = !this.hiddenNonMines;
         if(w) alert('YOU WON IN ' + this.turns + ' TURNS');
+    },
+    
+    floodFill: function(x,y) {
+         
+     var    i = -1,
+            j = -1;
+            
+        
+        for(i;i<2;i++){
+            for(j=-1;j<2;j++){
+                if(i===0 && j===0 || this.board[y][x].state ==='hidden'){continue;}
+                this.reveal(x+i,y+j, true);
+            }
+            
+        }
     }
 }
 
