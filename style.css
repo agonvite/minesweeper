@@ -17,23 +17,29 @@
     cursor: default;
 }
 
-body, html, table {
+body, html, main {
     width: 100%;
     height: 100%;
 }
 
-table {
+main {
     background: #bada55;
+    display: flex;
+    flex-direction: column;
 }
 
-table, tr, td {
-    border:none;
-    vertical-align: middle;
-    text-align: center;
-    border-spacing:0;
+section {
+    display: flex;
+    flex-grow:0;
+    flex-shrink: 1;
+    flex-basis: 100%;
+    width: 100%;
 }
 
-td {
+article {
+    flex-grow:0;
+    flex-shrink: 1;
+    flex-basis: 100%;
     background: transparent;
     -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);
@@ -45,7 +51,7 @@ td {
     border-image: url(assets/corners.svg) 6 repeat;
 }
 
-td:hover {
+article:hover {
     transition: 0.05s;
     background: white;
     -webkit-transform: scale3d(1.2,1.2,1);
@@ -53,17 +59,17 @@ td:hover {
     z-index: 2;
 }
 
-td:active {
+article:active:not(.flagged) {
     transition: 0.2s;
     -webkit-transform: scale3d(0.9,0.9,1);
     transform: scale3d(0.9,0.9,1);
 }
 
-td.flagged {
+.flagged {
     background: #DD2A2A;
 }
 
-td::after {
+article::after {
     position: absolute;
     bottom:0;
     right:0;

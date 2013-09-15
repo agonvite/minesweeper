@@ -17,9 +17,9 @@
 		buildBoard: function () {
 			document.body.innerHTML = '';
 			var d = document.createDocumentFragment(),
-				t = document.createElement('table'),
-				r = document.createElement('tr'),
-				c = document.createElement('td'),
+				t = document.createElement('main'),
+				r = document.createElement('section'),
+				c = document.createElement('article'),
 				w = this.width,
 				h = this.height,
 				s = this.state,
@@ -30,7 +30,7 @@
 				currentCell,
 				cells = [];
 				
-			c.innerHTML = '&nbsp;';
+			//c.innerHTML = '&nbsp;';
 			d.appendChild(t);
 			
 			for(i;i<h;i++) {
@@ -47,6 +47,11 @@
 							e.preventDefault();
 							e.stopPropagation();
 							self.rightClick(x,y);
+						}, false);
+						currentCell.addEventListener('click', function(e) {
+							e.preventDefault();
+							e.stopPropagation();
+							self.leftClick(x,y);
 						}, false);
 					})(j,i)
 					
@@ -75,17 +80,26 @@
 			
 			for(i;i<h;i++) {
 				for(j=0;j<w;j++) {
-					console.log(s[i][j].state);
 					c[i][j].className = s[i][j].type + ' ' + s[i][j].state;
+					if(s[i][j].state === 'numbered') {
+						c[i][j].innerHTML = s[i][j].number;
+					}
+					
 				}
 			}	
 		},
 		
 		rightClick: function(x,y) {
-			console.log('flagged',x,y);
-			console.log(this);
 			this.state = backend.flag(x,y);
 			this.updateBoard();
+		},
+		
+		leftClick: function(x,y) {
+			if(this.state[y][x].state !== 'flagged') {
+				this.state = backend.reveal(x,y);
+				console.log(this.state[y][x]);
+				this.updateBoard();
+			}
 		}
 		
 	}
