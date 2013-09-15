@@ -82,7 +82,7 @@ article.hidden:active {
     background: #FF6969;
 }
 
-.numbered {
+.numbered, .blank {
     background: #5590DA;
 }
 
