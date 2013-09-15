@@ -2,6 +2,7 @@ var backend = {
     width: 0,
     height: 0,
     board: [],
+    turns: 0,
     
 	init: function (width, height, density) {
 		var	   l = height*width,
@@ -77,9 +78,12 @@ var backend = {
         var c = this.board[y][x],
             n = this.getNumber(x,y);
         
+        
+        this.turns++;
+        
         if(c.state === 'hidden'){
             if (this.hasMine(x,y)) {
-                alert('you died :(')
+                alert('you died in ' + this.turns + ' turns');
             }
             else if (n) {
                 c.state = 'numbered';
@@ -87,6 +91,7 @@ var backend = {
             }
             else {
                 c.state = 'blank';
+               
             }
         }
         this.board[y][x] = c;
