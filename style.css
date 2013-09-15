@@ -49,9 +49,19 @@ article {
     -webkit-border-image: url(assets/corners.svg) 6 repeat;
     -moz-border-image: url(assets/corners.svg) 6 repeat;
     border-image: url(assets/corners.svg) 6 repeat;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-article:hover {
+article.numbered::before {
+    content: attr(data-number);
+    display: block;
+    color: white;
+}
+
+article.hidden:hover {
     transition: 0.05s;
     background: white;
     -webkit-transform: scale3d(1.2,1.2,1);
@@ -59,7 +69,7 @@ article:hover {
     z-index: 2;
 }
 
-article:active:not(.flagged) {
+article.hidden:active {
     transition: 0.2s;
     -webkit-transform: scale3d(0.9,0.9,1);
     transform: scale3d(0.9,0.9,1);
@@ -67,6 +77,13 @@ article:active:not(.flagged) {
 
 .flagged {
     background: #DD2A2A;
+}
+.flagged:hover {
+    background: #FF6969;
+}
+
+.numbered {
+    background: #5590DA;
 }
 
 article::after {

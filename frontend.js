@@ -82,7 +82,7 @@
 				for(j=0;j<w;j++) {
 					c[i][j].className = s[i][j].type + ' ' + s[i][j].state;
 					if(s[i][j].state === 'numbered') {
-						c[i][j].innerHTML = s[i][j].number;
+						c[i][j].dataset.number = s[i][j].number;
 					}
 					
 				}
@@ -95,7 +95,7 @@
 		},
 		
 		leftClick: function(x,y) {
-			if(this.state[y][x].state !== 'flagged') {
+			if(this.state[y][x].state === 'hidden') {
 				this.state = backend.reveal(x,y);
 				console.log(this.state[y][x]);
 				this.updateBoard();
