@@ -165,7 +165,6 @@ layout = function() {
 drawCross = function(ctx, x, y) {
 // 	ctx.fillRect(x-5, y-5, RATIO*10, RATIO*10);
 	ctx.drawImage(cornerImg,x-RATIO*(x === ctx.canvas.width?5:4),y-RATIO*(y === ctx.canvas.height?5:4),RATIO*9,RATIO*9);
-	console.log(x === ctx.canvas.width);
 }
 
 

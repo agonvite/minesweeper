@@ -110,10 +110,10 @@ article::after {
     font-size: 0.2em;
 }
 
-.hidden.mine::after {
+/* .hidden.mine::after {
     content: "M";
 }
 
 .hidden.empty::after {
     content: "X";
-}
+} */
